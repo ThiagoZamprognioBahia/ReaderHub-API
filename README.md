@@ -35,8 +35,8 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Description:** Reader login function.
 - **Request Parameters:**
 
-- **email**: (required|string|unique).
-- **password**: (required|string).
+    - **email**: (required|string|unique).
+    - **password**: (required|string).
 
 ### Feature 3: Other reader functions.
 
@@ -46,18 +46,18 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Description:** Basic functions related to the reader (Index, Show, Update, Destroy)
 - **Request Parameters:**
 
-- **name**: (nullable|string).
-- **last_name**: (nullable|string).
-- **email**: (nullable|string|unique).
-- **telephone**: (nullable|string).
-- **birthday**: (nullable|date_format:Y-m-d).
-- **neighborhood**: (nullable|string).
-- **city**: (nullable|string).
-- **zipcode**: (nullable|string).
-- **street**: (nullable|string).
-- **number**: (nullable|string).
-- **complement**: (nullable|string).
-- **password**: (nullable|string).
+    - **name**: (nullable|string).
+    - **last_name**: (nullable|string).
+    - **email**: (nullable|string|unique).
+    - **telephone**: (nullable|string).
+    - **birthday**: (nullable|date_format:Y-m-d).
+    - **neighborhood**: (nullable|string).
+    - **city**: (nullable|string).
+    - **zipcode**: (nullable|string).
+    - **street**: (nullable|string).
+    - **number**: (nullable|string).
+    - **complement**: (nullable|string).
+    - **password**: (nullable|string).
 
 ### Feature 4: Collects Redis cache from reader.
 
@@ -74,9 +74,9 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Description:** Standard function related to publishers. (Index, Store, Show, Update, Destroy)
 - **Request Parameters:**
 
-- **name**: (required|string).
-- **code**: (nullable|string).
-- **telephone**: (nullable|string).
+    - **name**: (required|string).
+    - **code**: (nullable|string).
+    - **telephone**: (nullable|string).
 
 ### Feature 6: Functions for book genres
 
@@ -93,7 +93,7 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Description:** Standard function, related to books. (Index, Store, Show, Update, Destroy)
 - **Request Parameters:**
 
-- **name**: (required|string).
+    - **name**: (required|string).
 
 ### Resource 8: Book and reader relationship functions.
 
@@ -103,8 +103,8 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Description:** Functions to control the relationship between books and readers. (Index, Store, Destroy)
 - **Request Parameters:**
 
-- **reader_id**: (required|string).
-- **book_id**: (required|string).
+    - **reader_id**: (required|string).
+    - **book_id**: (required|string).
 
 ### Authentication 
 
