@@ -27,10 +27,17 @@ class BookController extends Controller
         $books = Book::query();
         
         // Apply filters using the BooksFilterService service
-        $books = $booksFilterService->apply($books, $request->only(['name', 'genre', 'author', 'publisher_name', 'isbn']));
+        $books = $booksFilterService
+        ->apply($books, $request
+        ->only(['name', 'genre', 'author', 'publisher_name', 'isbn']));
+
+        if ($books->count() === 0) {
+            return response()->json(['message' => 'Nenhum livro encontrado.'], 404);
+        }
 
         // Retrieves books with filters applied
-        $books = $books->with('genre', 'publisher')->get();
+        $perPage = $request->input('per_page', 15);
+        $books = $books->with('genre', 'publisher')->paginate($perPage);
 
         return BookResource::collection($books);
     }

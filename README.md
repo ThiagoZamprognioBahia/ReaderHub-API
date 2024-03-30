@@ -1,66 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Reader Hub API
+API aimed at managing readers and books
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Main features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+API has an authentication system based on Bearer Token, in addition to the cruds of readers, books, book genres and publishers, in addition to sending an email on the reader's birthday with the total number of books read in the year and the total number of pages read since the start your registration on the platform.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+Feature 1: Reader Registration.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Auth: No
+Endpoint: /registrar-se
+HTTP Methods: POST
+Description: Function for creating reader registration (Store).
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Feature 2: Reader Login.
 
-## Laravel Sponsors
+Auth: No
+Endpoint: /login
+HTTP Methods: POST
+Description: Reader login function.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+Feature 3: Other reader functions.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Auth: Yes
+Endpoint: /leitores
+HTTP methods: GET, PATCH, DELETE
+Description: Basic functions related to the reader (Index, Show, Update, Destroy)
 
-## Contributing
+Feature 4: Collects Redis cache from reader.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Auth: Yes
+Endpoint: /cache
+HTTP Methods: GET
+Description: Function that returns the total number of pages read and the total number of books read.
 
-## Code of Conduct
+Feature 5: Publisher functions.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Auth: Yes
+Endpoint: /editoras
+HTTP methods: POST, GET, PATCH, DELETE
+Description: Standard function related to publishers. (Index, Store, Show, Update, Destroy)
 
-## Security Vulnerabilities
+Feature 6: Functions for book genres
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Auth: Yes
+Endpoint: /generos
+HTTP methods: POST, GET, PATCH, DELETE
+Description: Standard functions, related to genders. (Index, Store, Show, Update, Destroy)
 
-## License
+Resource 7: Functions of books.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Auth: Yes
+Endpoint: /livros
+HTTP methods: POST, GET, PATCH, DELETE
+Description: Standard function, related to books. (Index, Store, Show, Update, Destroy)
+
+Resource 8: Book and reader relationship functions.
+
+Auth: Yes
+Endpoint: /livros-leitores
+HTTP methods: POST, GET, DELETE
+Description: Functions to control the relationship between books and readers. (Index, Store, Destroy)
+
+
+Authentication
+Authentication based on the Bearer Token, when you /registrar-se or /login, you will receive json in return with a field called "token", you must send this token for each request using the authenticated routes.
+
+Installation Requirements
+
+PHP 8.2
+Laravel 11.0
+Composer
+Sanctum 4.0
+Predis 2.0
+
+* If you don't have Redis, I recommend downloading it from this link:
+Redis download: https://github.com/tporadowski/redis/releases
+In a Windows environment it is necessary to make some modifications, I will leave the link to a tutorial below.
+Tutorial link: https://www.youtube.com/watch?v=DLKzd3bvgt8
+After completing the installation and the standard ping test waiting for PONG, this step ends.
+
+
+Ambient configuration
+
+Clone the repository
+git clone https://github.com/ThiagoZamprognioBahia/ReaderHub-API
+
+install the dependencies:
+'''bash composer install
+
+
+Server Requirements:
+
+Create a SQL database at your location and configure its .env with your data.
+I will leave the .env.exemple in the DB_ part the same as my local .env.
+After that, access the downloaded repository on your machine via CMD, or your IDE terminal (if you have one) and run the 
+'''bash php artisan make:migration' command
+
+
+Email sending configuration:
+
+Firstly, in the .env in the MAIL_ part, the SMTP email server settings must be entered.
+I will leave below the platform that I always test sending emails and the link on how to configure it.
+
+For those thinking about using Gmail, here is a link:
+https://support.google.com/accounts/answer/6010255?hl=pt-BR&sjid=8074746018313122746-SA 
+
+Email testing: https://mailtrap.io/
+
+
+After creating an account, just go to the Email testing->inboxes tab, create your email inbox.
+Click on the Integrations select button and select the LARAVEL 9+ option
+The MAIL_ tags will appear below, just copy and paste into your .env.
+As for the SMTP username and password, just click on "Show Credentials", copy and paste them into the .env
+
+The command responsible for sending the email is called send-email-birthday which is configured to be run daily(),
+This command will send the congratulations email to the reader who is having a birthday.
+It is necessary to start your schedule. You can do this with this command '''bash php artisan schedule:work
+
+API initialization:
+
+'''bash php artisan serve

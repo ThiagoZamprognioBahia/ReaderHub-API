@@ -20,10 +20,11 @@ Route::namespace('Auth')->group(function() {
 // Authenticated routes
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::apiResource('/leitor', ReaderController::class);
-    Route::apiResource('/genero', GenreController::class);
-    Route::apiResource('/editora', PublisherController::class);
-    Route::apiResource('/livro', BookController::class);
+    Route::apiResource('/generos', GenreController::class);
+    Route::apiResource('/editoras', PublisherController::class);
+    Route::apiResource('/livros', BookController::class);
     Route::apiResource('/livros-leitores', BookReaderController::class);
+    Route::apiResource('/leitores', ReaderController::class);
+    Route::get('/cache/{id}', [ReaderController::class, 'getTotalBooksAndPagesFromCache']);
     
 });

@@ -16,9 +16,10 @@ class PublisherController extends Controller
     {
         $this->publisherService = $publisherService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $publishers = Publisher::all();;
+        $perPage = $request->input('per_page', 10);
+        $publishers = Publisher::paginate($perPage);
 
         return response()->json([
             'data'   => $publishers,

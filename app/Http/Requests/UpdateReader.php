@@ -25,8 +25,8 @@ class UpdateReader extends FormRequest
     public function rules()
     {
         
-        $readerId = $this->route('leitor');
-
+        $readerId = $this->route('leitore');
+        
         return [
             'name'         => 'nullable|string',
             'last_name'    => 'nullable|string',

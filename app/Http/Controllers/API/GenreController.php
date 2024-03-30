@@ -12,7 +12,7 @@ class GenreController extends Controller
 {
     public function index()
     {
-        $genres = Genre::all();;
+        $genres = Genre::all();
 
         return response()->json([
             'data'   => $genres,
@@ -72,7 +72,7 @@ class GenreController extends Controller
 
         return response()->json([
             'message' => 'Gênero atualizado com sucesso',
-            'dados'   => $genre,
+            'data'   => $genre,
         ], 200); 
     }
 
