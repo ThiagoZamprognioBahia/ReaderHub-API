@@ -14,18 +14,18 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Description:** Function for creating reader registration (Store).
 - **Request Parameters:**
 
-- **name**: (required|string).
-- **last_name**: (required|string).
-- **email**: (required|string|unique).
-- **telephone**: (required|string).
-- **birthday**: (required|date_format:Y-m-d).
-- **neighborhood**: (required|string).
-- **city**: (required|string).
-- **zipcode**: (required|string).
-- **street**: (required|string).
-- **number**: (required|string).
-- **complement**: (nullable|string).
-- **password**: (required|string).
+-- **name**: (required|string).
+-- **last_name**: (required|string).
+-- **email**: (required|string|unique).
+-- **telephone**: (required|string).
+-- **birthday**: (required|date_format:Y-m-d).
+-- **neighborhood**: (required|string).
+-- **city**: (required|string).
+-- **zipcode**: (required|string).
+-- **street**: (required|string).
+-- **number**: (required|string).
+-- **complement**: (nullable|string).
+-- **password**: (required|string).
 
 ### Feature 2: Reader Login.
 
