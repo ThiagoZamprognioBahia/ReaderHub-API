@@ -123,7 +123,7 @@ Ambient configuration
 
 Clone the repository: git clone https://github.com/ThiagoZamprognioBahia/ReaderHub-API
 
-install the dependencies: `php artisan serve`
+install the dependencies: `composer install`
 
 
 ### Server Requirements:
