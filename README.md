@@ -12,6 +12,20 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Endpoint:** /registrar-se 
 - **HTTP Methods:** POST 
 - **Description:** Function for creating reader registration (Store).
+- **Request Parameters:**
+
+- **name**: (required|string).
+- **last_name**: (required|string).
+- **email**: (required|string|unique).
+- **telephone**: (required|string).
+- **birthday**: (required|date_format:Y-m-d).
+- **neighborhood**: (required|string).
+- **city**: (required|string).
+- **zipcode**: (required|string).
+- **street**: (required|string).
+- **number**: (required|string).
+- **complement**: (nullable|string).
+- **password**: (required|string).
 
 ### Feature 2: Reader Login.
 
@@ -19,6 +33,10 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Endpoint:** /login 
 - **HTTP Methods:** POST 
 - **Description:** Reader login function.
+- **Request Parameters:**
+
+- **email**: (required|string|unique).
+- **password**: (required|string).
 
 ### Feature 3: Other reader functions.
 
@@ -26,6 +44,20 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Endpoint:** /leitores 
 - **HTTP methods:** GET, PATCH, DELETE 
 - **Description:** Basic functions related to the reader (Index, Show, Update, Destroy)
+- **Request Parameters:**
+
+- **name**: (nullable|string).
+- **last_name**: (nullable|string).
+- **email**: (nullable|string|unique).
+- **telephone**: (nullable|string).
+- **birthday**: (nullable|date_format:Y-m-d).
+- **neighborhood**: (nullable|string).
+- **city**: (nullable|string).
+- **zipcode**: (nullable|string).
+- **street**: (nullable|string).
+- **number**: (nullable|string).
+- **complement**: (nullable|string).
+- **password**: (nullable|string).
 
 ### Feature 4: Collects Redis cache from reader.
 
@@ -40,6 +72,11 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Endpoint:** /editoras 
 - **HTTP methods:** POST, GET, PATCH, DELETE 
 - **Description:** Standard function related to publishers. (Index, Store, Show, Update, Destroy)
+- **Request Parameters:**
+
+- **name**: (required|string).
+- **code**: (nullable|string).
+- **telephone**: (nullable|string).
 
 ### Feature 6: Functions for book genres
 
@@ -54,6 +91,9 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Endpoint:** /livros 
 - **HTTP methods:** POST, GET, PATCH, DELETE 
 - **Description:** Standard function, related to books. (Index, Store, Show, Update, Destroy)
+- **Request Parameters:**
+
+- **name**: (required|string).
 
 ### Resource 8: Book and reader relationship functions.
 
@@ -61,6 +101,10 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 - **Endpoint:** /livros-leitores 
 - **HTTP methods:** POST, GET, DELETE 
 - **Description:** Functions to control the relationship between books and readers. (Index, Store, Destroy)
+- **Request Parameters:**
+
+- **reader_id**: (required|string).
+- **book_id**: (required|string).
 
 ### Authentication 
 
@@ -93,3 +137,5 @@ The command responsible for sending the email is called send-email-birthday whic
 ### API initialization:
 
 `php artisan serve`
+
+
