@@ -118,7 +118,7 @@ Authentication based on the Bearer Token, when you /registrar-se or /login, you 
 - Sanctum 4.0 
 - Predis 2.0
 
-If you don't have Redis, I recommend downloading it from this link: Redis download: https://github.com/tporadowski/redis/releases In a Windows environment it is necessary to make some modifications, I will leave the link to a tutorial below. Tutorial link:https://www.youtube.com/watch?v=DLKzd3bvgt8 After completing the installation and the standard ping test waiting for PONG, this step ends.
+If you don't have Redis, I recommend downloading it from this link: [Redis download](https://github.com/tporadowski/redis/releases) In a Windows environment it is necessary to make some modifications, I will leave the link to a tutorial below. [Tutorial link](https://www.youtube.com/watch?v=DLKzd3bvgt8) After completing the installation and the standard ping test waiting for PONG, this step ends.
 Ambient configuration
 
 [Clone the repository](git clone https://github.com/ThiagoZamprognioBahia/ReaderHub-API)
