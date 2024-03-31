@@ -43,7 +43,7 @@ class StoreReader extends FormRequest
     public function messages()
     {
         return [
-            'email.unique' => 'O e-mail inserido já pertence a um leitor',     
+            'email.unique' => 'The email entered already belongs to a reader',     
         ];
     }
 }

@@ -13,17 +13,17 @@ class PublisherService
         
         // Check if a record with the same name already exists
         if ($validatedData['name'] && Publisher::where('name', $validatedData['name'])->exists()) {
-            return ['error' => 'Já existe uma editora cadastrada com esse nome.'];
+            return ['error' => 'There is already a publisher registered with that name.'];
         }
 
         // Check if a record with the same code already exists
         if ($validatedData['code'] && Publisher::where('code', $validatedData['code'])->exists()) {
-            return ['error' => 'Já existe uma editora cadastrada com esse código.'];
+            return ['error' => 'There is already a publisher registered with this code.'];
         }
 
         // Check if the position 'telephone' exists before making the query
         if ($telephone && Publisher::where('telephone', $telephone)->exists()) {
-            return ['error' => 'Já existe uma editora cadastrada com esse telefone.'];
+            return ['error' => 'There is already a publisher registered with this phone number.'];
         }
 
         try {
@@ -41,7 +41,7 @@ class PublisherService
             
         } catch (\Exception $e) {
             DB::rollback();
-            return ['error' => 'Erro ao criar editora']; 
+            return ['error' => 'Error creating publisher']; 
         }
     }
     public function update($id, $validatedData)
@@ -54,7 +54,7 @@ class PublisherService
             $name = ucfirst(mb_strtolower($name, 'UTF-8'));
 
             if (Publisher::where('name', $name)->where('id', '!=', $id)->exists()) {
-                return ['error' => 'Já existe uma editora cadastrada com esse nome.'];
+                return ['error' => 'There is already a publisher registered with that name.'];
             }
         } else {
             $name = $publisher->name;
@@ -63,7 +63,7 @@ class PublisherService
         // Check if a publisher already exists with the provided code
         if (isset($validatedData['code'])) {
             if (Publisher::where('code', $validatedData['code'])->where('id', '!=', $id)->exists()) {
-                return ['error' => 'Já existe uma editora cadastrada com esse código.'];
+                return ['error' => 'There is already a publisher registered with this code.'];
             }
             $code = $validatedData['code'];
         } else {
@@ -74,7 +74,7 @@ class PublisherService
         if (isset($validatedData['telephone'])) {
             $telephone = preg_replace('/[^0-9]/', '', $validatedData['telephone']);
             if (Publisher::where('telephone', $telephone)->where('id', '!=', $id)->exists()) {
-                return ['error' => 'Já existe uma editora cadastrada com esse telefone.'];
+                return ['error' => 'There is already a publisher registered with this phone number.'];
             }
         } else {
             $telephone = $publisher->telephone;

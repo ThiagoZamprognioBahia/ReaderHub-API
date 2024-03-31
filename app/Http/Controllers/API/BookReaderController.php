@@ -30,12 +30,12 @@ class BookReaderController extends Controller
         ->exists();
 
         if ($BookAlreadyRead) {
-            return response()->json(['message' => 'Livro já está adicionado ao seu perfil'], 404);
+            return response()->json(['message' => 'Book is already added to your profile'], 404);
         }
 
         $bookReader = BookReader::create($validatedData);
 
-        return response()->json(['message' => 'Livro adicionado ao perfil do leitor com sucesso', 'data' => $bookReader], 201);
+        return response()->json(['message' => 'Book successfully added to reader profile', 'data' => $bookReader], 201);
     }
 
     public function destroy($id)
@@ -45,7 +45,7 @@ class BookReaderController extends Controller
         $bookReader->delete();
 
         return response()->json([
-            'message' => 'Livro excluido com sucesso do seu perfil',
+            'message' => 'Book successfully deleted from your profile',
         ], 200); 
     }
 

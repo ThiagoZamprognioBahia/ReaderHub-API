@@ -13,18 +13,18 @@ use App\Http\Controllers\API\BookReaderController;
 Route::namespace('Auth')->group(function() {
 
     Route::post('/login', [AuthApiController::class, 'auth']);
-    Route::post('/registrar-se', [PublicReaderController::class, 'store']);
+    Route::post('/check-in', [PublicReaderController::class, 'store']);
 
 });
 
 // Authenticated routes
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::apiResource('/generos', GenreController::class);
-    Route::apiResource('/editoras', PublisherController::class);
-    Route::apiResource('/livros', BookController::class);
-    Route::apiResource('/livros-leitores', BookReaderController::class);
-    Route::apiResource('/leitores', ReaderController::class);
+    Route::apiResource('/genres', GenreController::class);
+    Route::apiResource('/publishers', PublisherController::class);
+    Route::apiResource('/books', BookController::class);
+    Route::apiResource('/books-readers', BookReaderController::class);
+    Route::apiResource('/readers', ReaderController::class);
     Route::get('/cache/{id}', [ReaderController::class, 'getTotalBooksAndPagesFromCache']);
     
 });

@@ -24,12 +24,12 @@ class PublicReaderController extends Controller
 
             DB::commit();
             return response()->json([
-                'message' => 'Leitor criado com sucesso',
+                'message' => 'Reader created successfully',
                 'token'   => $token,
                 'data'    => $reader,
             ], 201); 
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao criar leitor'], 500);
+            return response()->json(['message' => 'Error creating reader'], 500);
         }
     }
 }

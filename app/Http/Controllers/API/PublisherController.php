@@ -47,7 +47,7 @@ class PublisherController extends Controller
         }
 
         return response()->json([
-            'message' => 'Editora cadastrada com sucesso',
+            'message' => 'Publisher successfully registered',
             'data'   => $result,
         ], 200);
     }
@@ -78,7 +78,7 @@ class PublisherController extends Controller
         }
 
         return response()->json([
-            'message' => 'Editora atualizada com sucesso',
+            'message' => 'Publisher updated successfully',
             'data'   => $result,
         ], 200);
     }
@@ -95,7 +95,7 @@ class PublisherController extends Controller
         if ($associatedBooks) {
             $books = Book::where('publisher_id', $id)->pluck('name')->toArray();
             return response()->json([
-                'message' => 'Não é possível excluir a editora. Os seguintes livros estão associados a esta editora e devem ser editados primeiro:',
+                'message' => 'It is not possible to delete the publisher. The following books are associated with this publisher and must be edited first:',
                 'books' => $books
             ], 422);
         }
@@ -104,7 +104,7 @@ class PublisherController extends Controller
         $publisher->delete();
 
         return response()->json([
-            'message' => 'Editora excluída com sucesso',
+            'message' => 'Publisher successfully deleted',
         ], 200); 
     }
 }

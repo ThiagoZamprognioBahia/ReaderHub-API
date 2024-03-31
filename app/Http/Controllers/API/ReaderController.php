@@ -34,7 +34,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            return response()->json(['message' => 'Leitor não encontrado.'], 404);
+            return response()->json(['message' => 'Reader not found.'], 404);
         }
 
         Redis::set('total_books_read:' . $reader->id, $reader->total_books_read);
@@ -48,13 +48,13 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            return response()->json(['message' => 'Leitor não encontrado.'], 404);
+            return response()->json(['message' => 'Reader not found.'], 404);
         }
 
         $reader->update($request->validated());
 
         return response()->json([
-            'message' => 'Leitor atualizado com sucesso',
+            'message' => 'Reader updated successfully',
             'data'    => ReaderResource::make($reader),
         ], 200); 
     }
@@ -68,7 +68,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            return response()->json(['message' => 'Leitor não encontrado.'], 404);
+            return response()->json(['message' => 'Reader not found.'], 404);
         }
 
         if (!Hash::check($validatedData['password'], $reader->password)) {
@@ -80,7 +80,7 @@ class ReaderController extends Controller
         $reader->delete();
 
         return response()->json([
-            'message' => 'Leitor excluído com sucesso',
+            'message' => 'Successfully deleted reader',
         ], 204); 
     }
 

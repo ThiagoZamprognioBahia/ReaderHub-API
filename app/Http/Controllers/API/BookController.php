@@ -32,7 +32,7 @@ class BookController extends Controller
         ->only(['name', 'genre', 'author', 'publisher_name', 'isbn']));
 
         if ($books->count() === 0) {
-            return response()->json(['message' => 'Nenhum livro encontrado.'], 404);
+            return response()->json(['message' => 'No books found.'], 404);
         }
 
         // Retrieves books with filters applied
@@ -50,7 +50,7 @@ class BookController extends Controller
         if (isset($validatedData['isbn'])) {
             $existingBook = Book::where('isbn', $validatedData['isbn'])->first();
             if ($existingBook) {
-                return response()->json(['message' => 'Já existe um livro com este ISBN.'], 422);
+                return response()->json(['message' => 'A book with this ISBN already exists.'], 422);
             }
         }
 
@@ -88,7 +88,7 @@ class BookController extends Controller
         $existingPublisher = Publisher::find($validatedData['publisher_id']);
 
         if (!$existingPublisher) {
-            return response()->json(['message' => 'O ID do editor fornecido não foi encontrado.'], 422);
+            return response()->json(['message' => 'The provided publisher ID was not found.'], 422);
         }
 
         // Check if the genre ID was provided
@@ -106,7 +106,7 @@ class BookController extends Controller
         $book = Book::create($validatedData);
 
         return response()->json([
-            'message' => 'Livro criado com sucesso',
+            'message' => 'Book created successfully',
             'data' =>  BookResource::make($book),
         ], 201);
     }
@@ -117,7 +117,7 @@ class BookController extends Controller
         
         // Check if the book exists
         if (!$book) {
-            return response()->json(['message' => 'Livro não encontrado.'], 404);
+            return response()->json(['message' => 'Book not found.'], 404);
         }
 
         return BookResource::make($book);
@@ -131,14 +131,14 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            return response()->json(['message' => 'Livro não encontrado.'], 404);
+            return response()->json(['message' => 'Book not found.'], 404);
         }
 
         // Checks if the given ISBN already exists for another book
         if (isset($validatedData['isbn']) && $validatedData['isbn'] !== $book->isbn) {
             $existingBook = Book::where('isbn', $validatedData['isbn'])->first();
             if ($existingBook) {
-                return response()->json(['message' => 'Já existe um livro com este ISBN.'], 422);
+                return response()->json(['message' => 'A book with this ISBN already exists.'], 422);
             }
         }
 
@@ -184,7 +184,7 @@ class BookController extends Controller
         $book->update($validatedData);
 
         return response()->json([
-            'message' => 'Livro atualizado com sucesso',
+            'message' => 'Book updated successfully',
             'data' => BookResource::make($book),
         ], 200);
     }
@@ -195,13 +195,13 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            return response()->json(['message' => 'Livro não encontrado.'], 404);
+            return response()->json(['message' => 'Book not found.'], 404);
         }
         
         $book->delete();
 
         return response()->json([
-            'message' => 'Livro excluido com sucesso',
+            'message' => 'Book deleted successfully',
         ], 200); 
     }
 

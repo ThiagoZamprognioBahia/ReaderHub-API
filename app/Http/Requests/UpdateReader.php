@@ -25,7 +25,7 @@ class UpdateReader extends FormRequest
     public function rules()
     {
         
-        $readerId = $this->route('leitore');
+        $readerId = $this->route('reader');
         
         return [
             'name'         => 'nullable|string',
@@ -52,7 +52,7 @@ class UpdateReader extends FormRequest
     public function messages()
     {
         return [
-            'email.unique' => 'O e-mail inserido já pertence a um leitor',     
+            'email.unique' => 'The email entered already belongs to a reader',     
         ];
     }
 }

@@ -23,7 +23,7 @@ class AuthApiController extends Controller
         // Check if the reader exists and the password is correct
         if (!$reader || !Hash::check($validatedData['password'], $reader->password)) {
             throw ValidationException::withMessages([
-                'message' => ['senha ou email incorretos'],
+                'message' => ['incorrect password or email'],
             ]);
         }
 
@@ -34,7 +34,7 @@ class AuthApiController extends Controller
         $token = $reader->createToken('TokenName')->plainTextToken;
 
         return response()->json([
-            'message'   => 'Autenticação bem-sucedida',
+            'message'   => 'Successful authentication',
             'token'     => $token,
         ]);
     }

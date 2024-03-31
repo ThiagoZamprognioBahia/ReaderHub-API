@@ -32,7 +32,7 @@ class GenreController extends Controller
 
         // Check if a record with the same name already exists
         if (Genre::where('name', $name)->exists()) {
-            return response()->json(['message' => 'Já existe um registro com esse nome.'], 422);
+            return response()->json(['message' => 'A record with that name already exists.'], 422);
         }
 
         try {
@@ -47,7 +47,7 @@ class GenreController extends Controller
                 'data'    => $genre,
             ], 201); 
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao criar Gênero'], 500);
+            return response()->json(['message' => 'Successfully created genre'], 500);
         }
 
     }
@@ -71,7 +71,7 @@ class GenreController extends Controller
         $genre->update($validatedData);
 
         return response()->json([
-            'message' => 'Gênero atualizado com sucesso',
+            'message' => 'Genre updated successfully',
             'data'   => $genre,
         ], 200); 
     }
@@ -88,7 +88,7 @@ class GenreController extends Controller
         if ($associatedBooks) {
             $books = Book::where('genre_id', $id)->pluck('name')->toArray();
             return response()->json([
-                'message' => 'Não é possível excluir o gênero. Os seguintes livros estão associados a este gênero e devem ser editados primeiro:',
+                'message' => 'Cannot delete gender. The following books are associated with this genre and should be edited first:',
                 'books' => $books
             ], 422);
         }
@@ -97,7 +97,7 @@ class GenreController extends Controller
         $genre->delete();
 
         return response()->json([
-            'message' => 'Gênero excluído com sucesso',
+            'message' => 'Successfully deleted genre',
         ], 200); 
     }
 }
