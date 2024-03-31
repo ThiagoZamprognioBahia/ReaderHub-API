@@ -9,7 +9,7 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 ### Feature 1: Reader Registration.
 
 - **Auth:** No 
-- **Endpoint:** /registrar-se 
+- **Endpoint:** /check-in 
 - **HTTP Methods:** POST 
 - **Description:** Function for creating reader registration (Store).
 - **Request Parameters:**
@@ -41,7 +41,7 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 ### Feature 3: Other reader functions.
 
 - **Auth:** Yes 
-- **Endpoint:** /leitores 
+- **Endpoint:** /readers 
 - **HTTP methods:** GET, PATCH, DELETE 
 - **Description:** Basic functions related to the reader (Index, Show, Update, Destroy)
 - **Request Parameters:**
@@ -69,7 +69,7 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 ### Feature 5: Publisher functions.
 
 - **Auth:** Yes 
-- **Endpoint:** /editoras 
+- **Endpoint:** /publishers 
 - **HTTP methods:** POST, GET, PATCH, DELETE 
 - **Description:** Standard function related to publishers. (Index, Store, Show, Update, Destroy)
 - **Request Parameters:**
@@ -81,14 +81,14 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 ### Feature 6: Functions for book genres
 
 - **Auth:** Yes 
-- **Endpoint:** /generos 
+- **Endpoint:** /genres 
 - **HTTP methods:** POST, GET, PATCH, DELETE 
 - **Description:** Standard functions, related to genders. (Index, Store, Show, Update, Destroy)
 
 ### Resource 7: Functions of books.
 
 - **Auth:** Yes 
-- **Endpoint:** /livros 
+- **Endpoint:** /books 
 - **HTTP methods:** POST, GET, PATCH, DELETE 
 - **Description:** Standard function, related to books. (Index, Store, Show, Update, Destroy)
 - **Request Parameters:**
@@ -98,7 +98,7 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 ### Resource 8: Book and reader relationship functions.
 
 - **Auth:** Yes 
-- **Endpoint:** /livros-leitores 
+- **Endpoint:** /books-readers 
 - **HTTP methods:** POST, GET, DELETE 
 - **Description:** Functions to control the relationship between books and readers. (Index, Store, Destroy)
 - **Request Parameters:**
