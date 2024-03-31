@@ -108,7 +108,7 @@ API has an authentication system based on Bearer Token, in addition to the cruds
 
 ### Authentication 
 
-Authentication based on the Bearer Token, when you /registrar-se or /login, you will receive json in return with a field called "token", you must send this token for each request using the authenticated routes.
+Authentication based on the Bearer Token, when you /check-in or /login, you will receive json in return with a field called "token", you must send this token for each request using the authenticated routes.
 
 ### Installation Requirements
 
