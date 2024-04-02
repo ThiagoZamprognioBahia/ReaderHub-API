@@ -6,106 +6,6 @@
 
 API has an authentication system based on Bearer Token, in addition to the cruds of readers, books, book genres and publishers, in addition to sending an email on the reader's birthday with the total number of books read in the year and the total number of pages read since the start your registration on the platform.
 
-### Feature 1: Reader Registration.
-
-- **Auth:** No 
-- **Endpoint:** /check-in 
-- **HTTP Methods:** POST 
-- **Description:** Function for creating reader registration (Store).
-- **Request Parameters:**
-
-    - **name**: (required|string).
-    - **last_name**: (required|string).
-    - **email**: (required|string|unique).
-    - **telephone**: (required|string).
-    - **birthday**: (required|date_format:Y-m-d).
-    - **neighborhood**: (required|string).
-    - **city**: (required|string).
-    - **zipcode**: (required|string).
-    - **street**: (required|string).
-    - **number**: (required|string).
-    - **complement**: (nullable|string).
-    - **password**: (required|string).
-
-### Feature 2: Reader Login.
-
-- **Auth:** No 
-- **Endpoint:** /login 
-- **HTTP Methods:** POST 
-- **Description:** Reader login function.
-- **Request Parameters:**
-
-    - **email**: (required|string|unique).
-    - **password**: (required|string).
-
-### Feature 3: Other reader functions.
-
-- **Auth:** Yes 
-- **Endpoint:** /readers 
-- **HTTP methods:** GET, PATCH, DELETE 
-- **Description:** Basic functions related to the reader (Index, Show, Update, Destroy)
-- **Request Parameters:**
-
-    - **name**: (nullable|string).
-    - **last_name**: (nullable|string).
-    - **email**: (nullable|string|unique).
-    - **telephone**: (nullable|string).
-    - **birthday**: (nullable|date_format:Y-m-d).
-    - **neighborhood**: (nullable|string).
-    - **city**: (nullable|string).
-    - **zipcode**: (nullable|string).
-    - **street**: (nullable|string).
-    - **number**: (nullable|string).
-    - **complement**: (nullable|string).
-    - **password**: (nullable|string).
-
-### Feature 4: Collects Redis cache from reader.
-
-- **Auth:** Yes 
-- **Endpoint:** /cache 
-- **HTTP Methods:** GET 
-- **Description:** Function that returns the total number of pages read and the total number of books read.
-
-### Feature 5: Publisher functions.
-
-- **Auth:** Yes 
-- **Endpoint:** /publishers 
-- **HTTP methods:** POST, GET, PATCH, DELETE 
-- **Description:** Standard function related to publishers. (Index, Store, Show, Update, Destroy)
-- **Request Parameters:**
-
-    - **name**: (required|string).
-    - **code**: (nullable|string).
-    - **telephone**: (nullable|string).
-
-### Feature 6: Functions for book genres
-
-- **Auth:** Yes 
-- **Endpoint:** /genres 
-- **HTTP methods:** POST, GET, PATCH, DELETE 
-- **Description:** Standard functions, related to genders. (Index, Store, Show, Update, Destroy)
-
-### Resource 7: Functions of books.
-
-- **Auth:** Yes 
-- **Endpoint:** /books 
-- **HTTP methods:** POST, GET, PATCH, DELETE 
-- **Description:** Standard function, related to books. (Index, Store, Show, Update, Destroy)
-- **Request Parameters:**
-
-    - **name**: (required|string).
-
-### Resource 8: Book and reader relationship functions.
-
-- **Auth:** Yes 
-- **Endpoint:** /books-readers 
-- **HTTP methods:** POST, GET, DELETE 
-- **Description:** Functions to control the relationship between books and readers. (Index, Store, Destroy)
-- **Request Parameters:**
-
-    - **reader_id**: (required|string).
-    - **book_id**: (required|string).
-
 ### Authentication 
 
 Authentication based on the Bearer Token, when you /check-in or /login, you will receive json in return with a field called "token", you must send this token for each request using the authenticated routes.
@@ -145,5 +45,272 @@ The command responsible for sending the email is called send-email-birthday whic
 ### API initialization:
 
 `php artisan serve`
+
+### Route details.
+
+Below I will leave a list of parameters and filters that can be used for each possible route.
+
+### Endpoint: /check-in 
+
+- **Auth:** No 
+- **HTTP Methods:** POST 
+- **Description:** Function for creating reader registration (store).
+- **Request Parameters:**
+    - **name**: (required|string).
+    - **last_name**: (required|string).
+    - **email**: (required|string|unique).
+    - **telephone**: (required|string).
+    - **birthday**: (required|date_format:Y-m-d).
+    - **neighborhood**: (required|string).
+    - **city**: (required|string).
+    - **zipcode**: (required|string).
+    - **street**: (required|string).
+    - **number**: (required|string).
+    - **complement**: (nullable|string).
+    - **password**: (required|string|min:8).
+
+### Endpoint: /login 
+
+- **Auth:** No 
+- **HTTP Methods:** POST 
+- **Description:** Reader login function (auth).
+- **Request Parameters:**
+    - **email**: (required|string|unique).
+    - **password**: (required|string).
+      
+### Endpoint: /readers 
+
+- **Auth:** Yes 
+- **HTTP methods:** GET
+- **Description:** Function that returns list of readers (index).
+- **Filters:**
+    - **name**: (nullable|string).
+    - **last_name**: (nullable|string).
+    - **email**: (nullable|string|unique).
+    - **telephone**: (nullable|string).
+    - **birthday**: (nullable|date_format:Y-m-d).
+    - **page**: (nullable|int).
+    - **per_page**: (nullable|int).
+- **Request Parameters:**
+    - **name**: (nullable|string).
+    - **last_name**: (nullable|string).
+    - **email**: (nullable|string|unique).
+    - **telephone**: (nullable|string).
+    - **birthday**: (nullable|date_format:Y-m-d).
+    - **page**: (nullable|int).
+    - **per_page**: (nullable|int).
+
+### Endpoint: /readers/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** GET 
+- **Description:** Function that returns data from a single reader (show).
+
+### Endpoint: /readers/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** PATCH 
+- **Description:** Function that updates a single reader (update).
+- **Request Parameters:**
+    - **name**: (nullable|string).
+    - **last_name**: (nullable|string).
+    - **email**: (nullable|string|unique).
+    - **telephone**: (nullable|string).
+    - **birthday**: (nullable|date_format:Y-m-d).
+    - **neighborhood**: (nullable|string).
+    - **city**: (nullable|string).
+    - **zipcode**: (nullable|string).
+    - **street**: (nullable|string).
+    - **number**: (nullable|string).
+    - **complement**: (nullable|string).
+    - **password**: (required|string|min:8).
+
+### Endpoint: /readers/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** DELETE 
+- **Description:** Function that deletes a reader (destroy).
+- **Request Parameters:**
+    - **password**: (required|string|min:8).
+
+### Endpoint: /cache/{ID}
+
+- **Auth:** Yes 
+- **HTTP Methods:** GET 
+- **Description:** Function that returns the total number of pages read and the total number of books read (getTotalBooksAndPagesFromCache).
+
+### Endpoint: /books 
+
+- **Auth:** Yes 
+- **HTTP methods:** GET
+- **Description:** Function that returns list of books (index).
+- **Filters:**
+    - **name**: (nullable|string).
+    - **genre**: (nullable|string).
+    - **author**: (nullable|string).
+    - **publisher_name**: (nullable|string).
+    - **isbn**: (nullable|string).
+    - **page**: (nullable|int).
+    - **per_page**: (nullable|int).
+- **Request Parameters:**
+    - **name**: (nullable|string).
+    - **genre**: (nullable|string).
+    - **author**: (nullable|string).
+    - **publisher_name**: (nullable|string).
+    - **isbn**: (nullable|string).
+    - **page**: (nullable|int).
+    - **per_page**: (nullable|int).
+
+### Endpoint: /books 
+
+- **Auth:** Yes 
+- **HTTP methods:** POST
+- **Description:** Function that creates a book (store), if there is no genre with that name in the genre_name field, it creates and links to that book, if a publisher name is passed it does the same.
+- **Request Parameters:**
+    - **name**: (required|string).
+    - **genre_id**: (nullable|integer|required_without:genre_name).
+    - **genre_name**: (nullable|string|required_without:genre_id).
+    - **author**: (required|string).
+    - **year**: (required|integer).
+    - **pages**: (required|integer).
+    - **language**: (required|string).
+    - **edition**: (required|string).
+    - **publisher_id**: (nullable|integer).
+    - **publisher_name**: (nullable|string).
+    - **publisher_code**: (nullable|string).
+    - **publisher_telephone**: (nullable|string).
+    - **isbn**: (nullable|string).
+
+### Endpoint: /books/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** GET 
+- **Description:** Function that returns data from a single book (show).
+
+### Endpoint: /books/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** PATCH 
+- **Description:** Function that updates a single book (update), if there is no genre with that name in the genre_name field, it creates and links it to that book, if a publisher name is passed it does the same.
+- **Request Parameters:**
+    - **name**: (nullable|string).
+    - **genre_id**: (nullable|integer).
+    - **genre_name**: (nullable|string).
+    - **author**: (nullable|string).
+    - **year**: (nullable|integer).
+    - **pages**: (nullable|integer).
+    - **language**: (nullable|string).
+    - **edition**: (nullable|string).
+    - **publisher_id**: (nullable|integer).
+    - **publisher_name**: (nullable|string).
+    - **publisher_code**: (nullable|string).
+    - **publisher_telephone**: (nullable|string).
+    - **isbn**: (nullable|string).
+
+### Endpoint: /books/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** DELETE 
+- **Description:** Function that deletes a book (destroy) with SoftDeletes.
+
+### Endpoint: /publishers 
+
+- **Auth:** Yes 
+- **HTTP methods:** GET
+- **Description:** Function that returns list of publishers (index).
+- **Filters:**
+    - **page**: (nullable|int).
+    - **per_page**: (nullable|int).
+
+### Endpoint: /publishers 
+
+- **Auth:** Yes 
+- **HTTP methods:** POST
+- **Description:** Function that creates a publisher (store).
+- **Request Parameters:**
+    - **name**: (required|string).
+    - **code**: (nullable|string).
+    - **telephone**: (nullable|string).
+
+### Endpoint: /publishers/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** GET 
+- **Description:** Function that returns data from a single publisher (show).
+
+### Endpoint: /publishers/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** PATCH 
+- **Description:** Function that updates a single publisher.
+- **Request Parameters:**
+    - **name**: (nullable|string).
+    - **code**: (nullable|string).
+    - **telephone**: (nullable|string).
+
+### Endpoint: /publishers/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** DELETE 
+- **Description:** Function that deletes a publisher (destroy) if it is not linked to a book, otherwise it will be necessary to edit the book's publishers.
+
+### Endpoint: /genres 
+
+- **Auth:** Yes 
+- **HTTP methods:** GET
+- **Description:** Function that returns list of genres (index).
+
+### Endpoint: /genres 
+
+- **Auth:** Yes 
+- **HTTP methods:** POST
+- **Description:** Function that creates a genre (store).
+- **Request Parameters:**
+    - **name**: (required|string).
+
+### Endpoint: /genres/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** GET 
+- **Description:** Function that returns data from a single genre (show).
+
+### Endpoint: /genres/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** PATCH 
+- **Description:** Function that updates a single genre.
+- **Request Parameters:**
+    - **name**: (nullable|string).
+
+### Endpoint: /genres/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** DELETE 
+- **Description:** Function that deletes a genre (destroy) if it is not linked to a book, otherwise it will be necessary to edit the book's genre.
+
+### Endpoint: /books-readers
+
+- **Auth:** Yes 
+- **HTTP methods:** GET
+- **Description:** Function that returns a list of relationships between books and readers (index).
+- **Filters:**
+    - **page**: (nullable|int).
+    - **per_page**: (nullable|int).
+
+### Endpoint: /books-readers 
+
+- **Auth:** Yes 
+- **HTTP methods:** POST
+- **Description:** Function that creates relationships between books and readers (store).
+- **Request Parameters:**
+    - **reader_id**: (required|string).
+    - **book_id**: (required|string).
+
+### Endpoint: /books-readers/{ID} 
+
+- **Auth:** Yes 
+- **HTTP Methods:** DELETE 
+- **Description:** Function that deletes relationships between books and readers (destroy).
+    
 
 
