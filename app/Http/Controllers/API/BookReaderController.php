@@ -13,11 +13,11 @@ class BookReaderController extends Controller
     {
         $perPage = $request->input('per_page', 10);
 
-        
         $bookReaders = BookReader::where('reader_id', $request->input('reader_id'))->paginate($perPage);
 
         return BookReaderResource::collection($bookReaders);
     }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -26,8 +26,8 @@ class BookReaderController extends Controller
         ]);
 
         $BookAlreadyRead = BookReader::where('reader_id', $validatedData['reader_id'])
-        ->where('book_id', $validatedData['book_id'])
-        ->exists();
+            ->where('book_id', $validatedData['book_id'])
+            ->exists();
 
         if ($BookAlreadyRead) {
             return response()->json(['message' => 'Book is already added to your profile'], 404);
@@ -41,12 +41,16 @@ class BookReaderController extends Controller
     public function destroy($id)
     {
         $bookReader = BookReader::find($id);
-        
+
+        // Check if the bookReader exists
+        if (!$bookReader) {
+            return response()->json(['message' => 'Relationship between book and reader not found.'], 404);
+        }
+
         $bookReader->delete();
 
         return response()->json([
             'message' => 'Book successfully deleted from your profile',
-        ], 200); 
+        ], 200);
     }
-
 }

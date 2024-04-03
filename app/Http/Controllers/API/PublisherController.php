@@ -16,6 +16,7 @@ class PublisherController extends Controller
     {
         $this->publisherService = $publisherService;
     }
+
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
@@ -54,7 +55,12 @@ class PublisherController extends Controller
 
     public function show($id)
     {
-        $publisher = Publisher::findOrFail($id);
+        $publisher = Publisher::find($id);
+
+        // Check if the publisher exists
+        if (!$publisher) {
+            return response()->json(['message' => 'publisher not found.'], 404);
+        }
 
         return response()->json([
             'data'   => $publisher,
@@ -86,7 +92,12 @@ class PublisherController extends Controller
     public function destroy($id)
     {
         // Find the publisher by ID
-        $publisher = Publisher::findOrFail($id);
+        $publisher = Publisher::find($id);
+
+        // Check if the publisher exists
+        if (!$publisher) {
+            return response()->json(['message' => 'publisher not found.'], 404);
+        }
 
         // Check if there are any books associated with this publisher
         $associatedBooks = Book::where('publisher_id', $id)->exists();
@@ -105,6 +116,6 @@ class PublisherController extends Controller
 
         return response()->json([
             'message' => 'Publisher successfully deleted',
-        ], 200); 
+        ], 200);
     }
 }

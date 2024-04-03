@@ -22,14 +22,14 @@ class UpdateBook extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                => 'required|string',
-            'genre_id'            => 'nullable|integer|required_without:genre_name',
-            'genre_name'          => 'nullable|string|required_without:genre_id',
-            'author'              => 'required|string',
-            'year'                => 'required|integer',
-            'pages'               => 'required|integer',
-            'language'            => 'required|string',
-            'edition'             => 'required|string',
+            'name'                => 'nullable|string',
+            'genre_id'            => 'nullable|integer',
+            'genre_name'          => 'nullable|string',
+            'author'              => 'nullable|string',
+            'year'                => 'nullable|integer',
+            'pages'               => 'nullable|integer',
+            'language'            => 'nullable|string',
+            'edition'             => 'nullable|string',
             'publisher_id'        => 'nullable|integer',
             'publisher_name'      => 'nullable|string',
             'publisher_code'      => 'nullable|string',

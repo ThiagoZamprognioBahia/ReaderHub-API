@@ -25,11 +25,11 @@ class BookController extends Controller
     public function index(Request $request, BooksFilterService $booksFilterService)
     {
         $books = Book::query();
-        
+
         // Apply filters using the BooksFilterService service
         $books = $booksFilterService
-        ->apply($books, $request
-        ->only(['name', 'genre', 'author', 'publisher_name', 'isbn']));
+            ->apply($books, $request
+                ->only(['name', 'genre', 'author', 'publisher_name', 'isbn']));
 
         if ($books->count() === 0) {
             return response()->json(['message' => 'No books found.'], 404);
@@ -56,33 +56,33 @@ class BookController extends Controller
 
         // Check if publisher ID was provided
         if (!isset($validatedData['publisher_id'])) {
-            // Check if an editor with the given name already exists
-            $validatedData['publisher_name'] = preg_replace('/[^\p{L}\p{N}\s]/u', '', $validatedData['name']);
+            // Check if an publisher with the given name already exists
+            $validatedData['publisher_name'] = preg_replace('/[^\p{L}\p{N}\s]/u', '', $validatedData['publisher_name']);
             $validatedData['publisher_name'] = ucfirst(mb_strtolower($validatedData['publisher_name'], 'UTF-8'));
 
-            $existingPublisher = Publisher::where('name', $validatedData['publisher_name'])->first(); 
-        
+            $existingPublisher = Publisher::where('name', $validatedData['publisher_name'])->first();
+
             if (!$existingPublisher) {
-                // If an editor with the given name does not exist, create a new editor
+                // If an publisher with the given name does not exist, create a new publisher
                 $publisherData = [
                     'name'      => $validatedData['publisher_name'],
                     'code'      => isset($validatedData['publisher_code']) ? $validatedData['publisher_code'] : null,
                     'telephone' => isset($validatedData['publisher_telephone']) ? $validatedData['publisher_telephone'] : null
                 ];
-        
+
                 $publisher = $this->publisherService->store($publisherData);
-        
+
                 if (isset($publisher['error'])) {
                     return response()->json(['message' => $publisher['error']], 422);
                 }
-        
+
                 // Update the publisher ID with the new created ID
                 $validatedData['publisher_id'] = $publisher->id;
             } else {
-                // If an editor with the given name already exists, update the editor ID
+                // If an publisher with the given name already exists, update the publisher ID
                 $validatedData['publisher_id'] = $existingPublisher->id;
             }
-        } 
+        }
 
         // Check if the publisher with the given ID exists in the database
         $existingPublisher = Publisher::find($validatedData['publisher_id']);
@@ -114,7 +114,7 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::with('genre', 'publisher')->find($id);
-        
+
         // Check if the book exists
         if (!$book) {
             return response()->json(['message' => 'Book not found.'], 404);
@@ -143,37 +143,38 @@ class BookController extends Controller
         }
 
         // Checks if publisher ID was provided
-        if (!isset($validatedData['publisher_id'])) {
-            // Checks if an editor with the given name already exists
-            $validatedData['publisher_name'] = preg_replace('/[^\p{L}\p{N}\s]/u', '', $validatedData['name']);
+        if (!isset($validatedData['publisher_id']) && isset($validatedData['publisher_name'])) {
+
+            // Checks if an publisher with the given name already exists
+            $validatedData['publisher_name'] = preg_replace('/[^\p{L}\p{N}\s]/u', '', $validatedData['publisher_name']);
             $validatedData['publisher_name'] = ucfirst(mb_strtolower($validatedData['publisher_name'], 'UTF-8'));
 
-            $existingPublisher = Publisher::where('name', $validatedData['publisher_name'])->first(); 
-            
-            if (!$existingPublisher) {      
-                // If an editor with the given name does not exist, create a new editor
+            $existingPublisher = Publisher::where('name', $validatedData['publisher_name'])->first();
+
+            if (!$existingPublisher) {
+                // If an publisher with the given name does not exist, create a new publisher
                 $publisherData = [
                     'name'      => $validatedData['publisher_name'],
                     'code'      => isset($validatedData['publisher_code']) ? $validatedData['publisher_code'] : null,
                     'telephone' => isset($validatedData['publisher_telephone']) ? $validatedData['publisher_telephone'] : null
                 ];
-        
+
                 $publisher = $this->publisherService->store($publisherData);
-        
+
                 if (isset($publisher['error'])) {
                     return response()->json(['message' => $publisher['error']], 422);
                 }
-        
+
                 $validatedData['publisher_id'] = $publisher->id;
             } else {
-                // If an editor with the given name already exists, update the editor ID
+                // If an publisher with the given name already exists, update the publisher ID
                 $validatedData['publisher_id'] = $existingPublisher->id;
             }
-        } 
-        
+        }
+
         // Checks if the genre ID was provided
-        if (!isset($validatedData['genre_id'])) {
-            
+        if (!isset($validatedData['genre_id']) && isset($validatedData['genre_name'])) {
+
             $genreName = ucwords(strtolower(trim($validatedData['genre_name'])));
 
             $genre = Genre::firstOrCreate(['name' => $genreName]);
@@ -197,12 +198,11 @@ class BookController extends Controller
         if (!$book) {
             return response()->json(['message' => 'Book not found.'], 404);
         }
-        
+
         $book->delete();
 
         return response()->json([
             'message' => 'Book deleted successfully',
-        ], 200); 
+        ], 200);
     }
-
 }

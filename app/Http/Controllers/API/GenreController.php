@@ -40,21 +40,25 @@ class GenreController extends Controller
 
             $genre = Genre::create([
                 'name' => $name,
-            ]);  
+            ]);
 
             return response()->json([
                 'message' => 'Gênero criado com sucesso',
                 'data'    => $genre,
-            ], 201); 
+            ], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Successfully created genre'], 500);
         }
-
     }
 
     public function show($id)
     {
-        $genre = Genre::findOrFail($id);
+        $genre = Genre::find($id);
+
+        // Check if the genre exists
+        if (!$genre) {
+            return response()->json(['message' => 'Genre not found.'], 404);
+        }
 
         return response()->json([
             'data'   => $genre,
@@ -64,22 +68,33 @@ class GenreController extends Controller
     public function update($id, Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string',
+            'name' => 'nullable|string',
         ]);
 
-        $genre = Genre::findOrFail($id);
+        $genre = Genre::find($id);
+
+        // Check if the genre exists
+        if (!$genre) {
+            return response()->json(['message' => 'Genre not found.'], 404);
+        }
+
         $genre->update($validatedData);
 
         return response()->json([
             'message' => 'Genre updated successfully',
             'data'   => $genre,
-        ], 200); 
+        ], 200);
     }
 
     public function destroy($id)
     {
         // Find the genre by ID
-        $genre = Genre::findOrFail($id);
+        $genre = Genre::find($id);
+
+        // Check if the genre exists
+        if (!$genre) {
+            return response()->json(['message' => 'Genre not found.'], 404);
+        }
 
         // Check if there are any books associated with this genre
         $associatedBooks = Book::where('genre_id', $id)->exists();
@@ -98,6 +113,6 @@ class GenreController extends Controller
 
         return response()->json([
             'message' => 'Successfully deleted genre',
-        ], 200); 
+        ], 200);
     }
 }

@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class PublisherService
 {
-        public function store(array $validatedData)
+    public function store(array $validatedData)
     {
         $telephone = isset($validatedData['telephone']) ? preg_replace('/[^0-9]/', '', $validatedData['telephone']) : null;
-        
+
         // Check if a record with the same name already exists
         if ($validatedData['name'] && Publisher::where('name', $validatedData['name'])->exists()) {
             return ['error' => 'There is already a publisher registered with that name.'];
@@ -33,20 +33,25 @@ class PublisherService
                 'name'      => $validatedData['name'],
                 'code'      => $validatedData['code'],
                 'telephone' => $telephone
-            ]);  
+            ]);
 
             DB::commit();
 
-            return $publisher; 
-            
+            return $publisher;
         } catch (\Exception $e) {
             DB::rollback();
-            return ['error' => 'Error creating publisher']; 
+            return ['error' => 'Error creating publisher'];
         }
     }
+
     public function update($id, $validatedData)
     {
-        $publisher = Publisher::findOrFail($id);
+        $publisher = Publisher::find($id);
+
+        // Check if the publisher exists
+        if (!$publisher) {
+            return response()->json(['message' => 'publisher not found.'], 404);
+        }
 
         // Check if a publisher with the given name already exists
         if (isset($validatedData['name'])) {
