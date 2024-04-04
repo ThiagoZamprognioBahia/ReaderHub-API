@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\InvalidIdException;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Genre;
@@ -57,7 +58,7 @@ class GenreController extends Controller
 
         // Check if the genre exists
         if (!$genre) {
-            return response()->json(['message' => 'Genre not found.'], 404);
+            throw new InvalidIdException("Genre with ID $id not found.");
         }
 
         return response()->json([
@@ -75,7 +76,7 @@ class GenreController extends Controller
 
         // Check if the genre exists
         if (!$genre) {
-            return response()->json(['message' => 'Genre not found.'], 404);
+            throw new InvalidIdException("Genre with ID $id not found.");
         }
 
         $genre->update($validatedData);
@@ -93,7 +94,7 @@ class GenreController extends Controller
 
         // Check if the genre exists
         if (!$genre) {
-            return response()->json(['message' => 'Genre not found.'], 404);
+            throw new InvalidIdException("Genre with ID $id not found.");
         }
 
         // Check if there are any books associated with this genre

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\InvalidIdException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BookReaderResource;
 use App\Models\BookReader;
@@ -44,7 +45,7 @@ class BookReaderController extends Controller
 
         // Check if the bookReader exists
         if (!$bookReader) {
-            return response()->json(['message' => 'Relationship between book and reader not found.'], 404);
+            throw new InvalidIdException("Relationship between book and reader with ID $id not found.");
         }
 
         $bookReader->delete();

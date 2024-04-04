@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\InvalidIdException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBook;
 use App\Http\Requests\UpdateBook;
@@ -88,7 +89,7 @@ class BookController extends Controller
         $existingPublisher = Publisher::find($validatedData['publisher_id']);
 
         if (!$existingPublisher) {
-            return response()->json(['message' => 'The provided publisher ID was not found.'], 422);
+            throw new InvalidIdException("The provided publisher " . $validatedData['publisher_id'] . " was not found.");
         }
 
         // Check if the genre ID was provided
@@ -117,7 +118,7 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            return response()->json(['message' => 'Book not found.'], 404);
+            throw new InvalidIdException("Book with ID $id not found.");
         }
 
         return BookResource::make($book);
@@ -131,7 +132,7 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            return response()->json(['message' => 'Book not found.'], 404);
+            throw new InvalidIdException("Book with ID $id not found.");
         }
 
         // Checks if the given ISBN already exists for another book
@@ -196,7 +197,7 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            return response()->json(['message' => 'Book not found.'], 404);
+            throw new InvalidIdException("Book with ID $id not found.");
         }
 
         $book->delete();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\InvalidIdException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
@@ -34,7 +35,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            return response()->json(['message' => 'Reader not found.'], 404);
+            throw new InvalidIdException("Reader with ID $id not found.");
         }
 
         Redis::set('total_books_read:' . $reader->id, $reader->total_books_read);
@@ -48,7 +49,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            return response()->json(['message' => 'Reader not found.'], 404);
+            throw new InvalidIdException("Reader with ID $id not found.");
         }
 
         $reader->update($request->validated());
@@ -68,7 +69,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            return response()->json(['message' => 'Reader not found.'], 404);
+            throw new InvalidIdException("Reader with ID $id not found.");
         }
 
         if (!Hash::check($validatedData['password'], $reader->password)) {

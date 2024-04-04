@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\InvalidIdException;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Publisher;
@@ -59,7 +60,7 @@ class PublisherController extends Controller
 
         // Check if the publisher exists
         if (!$publisher) {
-            return response()->json(['message' => 'publisher not found.'], 404);
+            throw new InvalidIdException("Publisher with ID $id not found.");
         }
 
         return response()->json([
@@ -96,7 +97,7 @@ class PublisherController extends Controller
 
         // Check if the publisher exists
         if (!$publisher) {
-            return response()->json(['message' => 'publisher not found.'], 404);
+            throw new InvalidIdException("Publisher with ID $id not found.");
         }
 
         // Check if there are any books associated with this publisher

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\InvalidIdException;
 use App\Models\Publisher;
 use Illuminate\Support\Facades\DB;
 
@@ -50,7 +51,7 @@ class PublisherService
 
         // Check if the publisher exists
         if (!$publisher) {
-            return response()->json(['message' => 'publisher not found.'], 404);
+            throw new InvalidIdException("Publisher with ID $id not found.");
         }
 
         // Check if a publisher with the given name already exists
