@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
 
         $exceptions->reportable(function (InvalidIdException $e) {
-            info('Product Exception: ' . $e->getMessage());
+            info('Id Exception: ' . $e->getMessage());
         });
 
     })->create(); 
