@@ -58,7 +58,7 @@ class GenreController extends Controller
 
         // Check if the genre exists
         if (!$genre) {
-            throw new InvalidIdException("Genre with ID $id not found.");
+            throw new InvalidIdException("Genre not found.", $id );
         }
 
         return response()->json([
@@ -76,7 +76,7 @@ class GenreController extends Controller
 
         // Check if the genre exists
         if (!$genre) {
-            throw new InvalidIdException("Genre with ID $id not found.");
+            throw new InvalidIdException("Genre not found.", $id );
         }
 
         $genre->update($validatedData);
@@ -94,7 +94,7 @@ class GenreController extends Controller
 
         // Check if the genre exists
         if (!$genre) {
-            throw new InvalidIdException("Genre with ID $id not found.");
+            throw new InvalidIdException("Genre not found.", $id );
         }
 
         // Check if there are any books associated with this genre

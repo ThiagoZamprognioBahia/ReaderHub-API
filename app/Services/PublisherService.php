@@ -51,7 +51,7 @@ class PublisherService
 
         // Check if the publisher exists
         if (!$publisher) {
-            throw new InvalidIdException("Publisher with ID $id not found.");
+            throw new InvalidIdException("Publisher not found.", $id );
         }
 
         // Check if a publisher with the given name already exists

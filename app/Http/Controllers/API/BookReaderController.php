@@ -45,7 +45,7 @@ class BookReaderController extends Controller
 
         // Check if the bookReader exists
         if (!$bookReader) {
-            throw new InvalidIdException("Relationship between book and reader with ID $id not found.");
+            throw new InvalidIdException("Relationship between book and reader not found.", $id);
         }
 
         $bookReader->delete();

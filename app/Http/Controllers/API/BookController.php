@@ -89,7 +89,8 @@ class BookController extends Controller
         $existingPublisher = Publisher::find($validatedData['publisher_id']);
 
         if (!$existingPublisher) {
-            throw new InvalidIdException("The provided publisher " . $validatedData['publisher_id'] . " was not found.");
+
+            throw new InvalidIdException("The provided publisher was not found.", $validatedData['publisher_id']);
         }
 
         // Check if the genre ID was provided
@@ -118,7 +119,7 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            throw new InvalidIdException("Book with ID $id not found.");
+            throw new InvalidIdException("Book not found.", $id );
         }
 
         return BookResource::make($book);
@@ -132,7 +133,7 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            throw new InvalidIdException("Book with ID $id not found.");
+            throw new InvalidIdException("Book not found.", $id );
         }
 
         // Checks if the given ISBN already exists for another book
@@ -197,7 +198,7 @@ class BookController extends Controller
 
         // Check if the book exists
         if (!$book) {
-            throw new InvalidIdException("Book with ID $id not found.");
+            throw new InvalidIdException("Book not found.", $id );
         }
 
         $book->delete();

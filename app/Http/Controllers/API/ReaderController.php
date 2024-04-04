@@ -35,7 +35,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            throw new InvalidIdException("Reader with ID $id not found.");
+            throw new InvalidIdException("Reader not found.", $id );
         }
 
         Redis::set('total_books_read:' . $reader->id, $reader->total_books_read);
@@ -49,7 +49,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            throw new InvalidIdException("Reader with ID $id not found.");
+            throw new InvalidIdException("Reader not found.", $id );
         }
 
         $reader->update($request->validated());
@@ -69,7 +69,7 @@ class ReaderController extends Controller
         $reader = Reader::find($id);
 
         if (!$reader) {
-            throw new InvalidIdException("Reader with ID $id not found.");
+            throw new InvalidIdException("Reader not found.", $id );
         }
 
         if (!Hash::check($validatedData['password'], $reader->password)) {

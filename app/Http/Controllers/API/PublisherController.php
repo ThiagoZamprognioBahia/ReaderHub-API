@@ -60,7 +60,7 @@ class PublisherController extends Controller
 
         // Check if the publisher exists
         if (!$publisher) {
-            throw new InvalidIdException("Publisher with ID $id not found.");
+            throw new InvalidIdException("Publisher not found.", $id );
         }
 
         return response()->json([
@@ -97,7 +97,7 @@ class PublisherController extends Controller
 
         // Check if the publisher exists
         if (!$publisher) {
-            throw new InvalidIdException("Publisher with ID $id not found.");
+            throw new InvalidIdException("Publisher not found.", $id );
         }
 
         // Check if there are any books associated with this publisher
